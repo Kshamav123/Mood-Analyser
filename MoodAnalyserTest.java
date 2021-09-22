@@ -22,38 +22,69 @@ public class MoodAnalyserTest {
 	@Test
 	public void WhenMoodIsSadDisplaysSAD() {
 		MoodAnalyser moodAnalyzer = new MoodAnalyser("I'm feeling sad.");
-		String mood = moodAnalyzer.analyseMood();
-		Assert.assertEquals(mood, "SAD");
+		String mood;
+		try {
+			mood = moodAnalyzer.analyseMood();
+			Assert.assertEquals(mood, "SAD");
+		} catch (MoodAnalysisException e) {
+			e.printStackTrace();
+		}
 	}
 
 	/**
-	 * Use Case 2 - returns happy when the message has happy.
+	 * Use case 2- returns happy when the message has happy
 	 */
 	@Test
 	public void WhenMoodIsHappyDisplaysHAPPY() {
 		MoodAnalyser moodAnalyzer = new MoodAnalyser("I'm feeling happy. ");
-		String mood = moodAnalyzer.analyseMood();
-		Assert.assertEquals(mood, "HAPPY");
+		String mood;
+		try {
+			mood = moodAnalyzer.analyseMood();
+			Assert.assertEquals(mood, "HAPPY");
+		} catch (MoodAnalysisException e) {
+			e.printStackTrace();
+		}
 	}
 
 	/**
-	 * Use Case 3 - returns happy when the message has no occurance of the word
+	 * Use case 3- returns happy when the message has no occurence of the word 'sad'
 	 */
-
 	@Test
 	public void WhenMoodIsAnythingElseDisplaysHAPPY() {
 		MoodAnalyser moodAnalyzer = new MoodAnalyser("I'm feeling okay.");
-		String mood = moodAnalyzer.analyseMood();
-		Assert.assertEquals(mood, "HAPPY");
+		String mood;
+		try {
+			mood = moodAnalyzer.analyseMood();
+			Assert.assertEquals(mood, "HAPPY");
+		} catch (MoodAnalysisException e) {
+			e.printStackTrace();
+		}
 	}
 
 	/**
-	 * Use Case 4 -when mood entered is Null, displays happy.
+	 * Use Case 4 -when mood entered is Null, displays exception message
 	 */
 	@Test
-	public void WhenMoodIsNullDisplaysHAPPY() {
+	public void WhenMoodIsNullDisplaysExceptionMessage() {
 		MoodAnalyser moodAnalyzer = new MoodAnalyser(null);
-		String mood = moodAnalyzer.analyseMood();
-		Assert.assertEquals(mood, "HAPPY");
+		String mood;
+		try {
+			mood = moodAnalyzer.analyseMood();
+		} catch (MoodAnalysisException e) {
+			Assert.assertEquals("Please Enter a Valid message.", e.getMessage());
+		}
+	}
+
+	/**
+	 * Use Case 5 -when mood entered is empty, displays exception message
+	 */
+	@Test
+	public void WhenMoodIsEmptyDisplaysExceptionMessage() {
+		MoodAnalyser moodAnalyzer = new MoodAnalyser(" ");
+		try {
+			moodAnalyzer.analyseMood();
+		} catch (MoodAnalysisException e) {
+			Assert.assertEquals("Please Enter a Valid message.", e.getMessage());
+		}
 	}
 }
