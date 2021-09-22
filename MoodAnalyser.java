@@ -3,31 +3,44 @@ package com.moodanalyser;
 public class MoodAnalyser {
 	String message;
 
-	public MoodAnalyser(String string) {
-		this.message = message;
+	public MoodAnalyser() {
+		this.message = null;
 	}
+
 
 	/**
 	 * Constructor to initialise
 	 * 
 	 * @param message
+	 * @throws MoodAnalysisException 
 	 */
-	public String MoodAnalyser(String message) {
+	public  MoodAnalyser(String message){
 		this.message = message;
-		return analyseMood();
 	}
+		
+	
 
-	public String analyseMood() {
+	public String analyseMood() throws MoodAnalysisException {
 
-		try {
-			if (message.contains("sad")) {
+		try
+		{
+			if(message.length() == 0)
+			{
+				throw new MoodAnalysisException("Please Enter a Valid message.",MoodAnalysisException.ExceptionType.EMPTY_MESSAGE);
+			}
+			else if (message.contains("sad")) 
+			{
 				return "SAD";
-			} else {
+			} 
+			else 
+			{
 				return "HAPPY";
 			}
-
-		} catch (NullPointerException e) {
-			return "HAPPY";
+		}
+		catch(NullPointerException e)
+		{
+			throw new MoodAnalysisException("Please Enter a Valid message.",MoodAnalysisException.ExceptionType.NULL_MESSAGE);
 		}
 	}
-}
+}	
+
